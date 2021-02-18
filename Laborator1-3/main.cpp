@@ -9,10 +9,10 @@ struct cuvinte
 };
 int main()
 {
-    cuvinte V[300];
+    cuvinte V[300], aux;
     int nr = 0, i, j;
     FILE *f = fopen("text.in", " r ");
-    char x[1000], aux[50];
+    char x[1000];
     fscanf( f, "%[^\n]s", x );
     char* p = strtok(x, " ");
     while (p != NULL)
@@ -27,10 +27,9 @@ int main()
         for( j = i+1 ; j <= nr ; j++ )
             if( V[i].lungime < V[j].lungime )
             {
-                switch( V[i].lungime , V[j].lungime );
-                strcpy(aux , V[i].s);
-                strcpy(V[i].s , V[j].s);
-                strcpy(V[j].s , aux);
+                aux=V[i];
+                V[i]=V[j];
+                V[j]=aux;
             }
     for ( i = 1 ; i <= nr ; i++ )
     {
