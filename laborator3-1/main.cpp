@@ -21,13 +21,11 @@ int main()
     cout<<Math::Add( 4 , 1 , 2 , 3 , 10)<<endl;
     cout<<endl;
 
-    /*char* r1 = Math::Add( "230" , "910" );
+    char* r1 = Math::Add( "230" , "910" );
     cout<<r1 <<endl;
-
-    r1 = Math::Sub( "230" , "910" );
+    r1 = Math::Sub( "6123" , "4725" );
     cout<<r1 <<endl;
+    //delete r1[]; //pt ca l-am alocat dinamic in functie, trebuie sa l stergem
 
-    delete r1[]; //pt ca l-am alocat dinamic in functie, trebuie sa l tergem
-    */
     return 0;
 }
