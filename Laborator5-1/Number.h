@@ -7,25 +7,30 @@ class Number
     const char *value;
     int base;
 public:
-    //Constructori:
+    //Constructori/Deconstructor:
     Number( const char * value, int base );
-    ~Number();
     Number( const Number& n );
+    ~Number();
     // mai trebuie move const
 
-
+    //intrebare:move assignment operator este =?
+    //intrebare: la ce sa folosim friendly pt subtraction si addition?
+    //intrebare: e bine op de indexare?
     //Operatori:
-    Number operator+ ( const Number& n1 , const Number& n2 );
-    Number operator- ( const Number& n1 , const Number& n2 );
-    Number operator- ( const Number& n );
-    bool operator< ( const Number& n1 , const Number& n2 );
-	bool operator<= ( const Number& n1 , const Number& n2 );
-	bool operator> ( const Number& n1 , const Number& n2 );
-	bool operator>= ( const Number& n1 , const Number& n2 );
-	bool operator== ( const Number& n1 , const Number& n2 );
-	bool operator!= ( const Number& n1 , const Number& n2 );
+    Number operator= ( const Number& n);
+    Number operator[](int index);
+    Number operator+ ( const Number& n1 );
+    Number operator- ( const Number& n1 );
+    char operator- ( );
+    bool operator< ( const Number& n1 );
+	bool operator<= ( const Number& n1 );
+	bool operator> ( const Number& n1 );
+	bool operator>= ( const Number& n1 );
+	bool operator== ( const Number& n1 );
+	bool operator!= ( const Number& n1 );
     Number operator| (Number& n); //returneaza concatenarea celor 2 numere in baza cea mai mare
-
+    void operator--();
+    void operator--(int VariabilaExtremDeFolositoare);
 
 
     //Metode:

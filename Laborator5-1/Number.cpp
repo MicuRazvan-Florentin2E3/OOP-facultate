@@ -1,5 +1,6 @@
 #include "Number.h"
 #include <string.h>
+#include <stdio.h>
 
 
 //Alte functii:
@@ -40,10 +41,27 @@ int toDeci( char* str, int base )
 	return num;
 }
 
+char reVal(int num)
+{
+    if (num >= 0 && num <= 9)
+        return (char)(num + '0');
+    else
+        return (char)(num - 10 + 'A');
+}
 
-//de facut functie ToBase() care sa transformare din baza 10 in baza B
-
-
+char* fromDeci( int base, int inputNum )
+{
+    char res[1000];
+    int index = 0;
+    while (inputNum > 0)
+    {
+        res[index++] = reVal(inputNum % base);
+        inputNum /= base;
+    }
+    res[index] = '\0';
+    strrev(res);
+    return res;
+}
 
 //Constructori / Deconstructori:
 
@@ -64,58 +82,68 @@ Number::Number( const char* value, int base)
 
 
 //Operatori:
+Number Number::operator= ( const Number& n)
+{
+    Number rez( "0" , 10 );
+    strcpy( rez.value , this.value );
+    rez.base = this.base;
+    return rez;
+}
+char& Number::operator[](int index) {
+	return value[index];
+}
 
-// de facut operator pentru []
-Number Number::operator+ ( const Number& n1 , const Number& n2 )
+Number Number::operator+ ( const Number& n1 )
 {
     int a, b, bazaMaxima , aux;
     bazaMaxima = maxim( n1.base , n2.base );
     if( n1.base != 10 )
         a = toDeci( n1.value , n1.base );
-    if( n2.base != 10)
-        b = toDeci( n2.value , n2.base );
+    if( this.base != 10)
+        b = toDeci( this.value , this.base );
 
     Number rez( "0" , 10 );
     aux = a + b;
-    rez.value = ToBase( aux , bazaMaxima ) ;
+    strcpy( rez.value , fromDeci( bazaMaxima , aux ) ;
     rez.base = bazaMaxima ;
     return rez;
+
 }
 
-Number Number::operator- ( const Number& n1 , const Number& n2 )  //substraction
+Number Number::operator- ( const Number& n1 )  //substraction
 {
     int a, b, bazaMaxima ;
     bazaMaxima = maxim( n1.base , n2.base );
     if( n1.base != 10 )
         a = toDeci( n1.value , n1.base );
-    if( n2.base != 10)
-        b = toDeci( n2.value , n2.base );
+    if( this.base != 10)
+        b = toDeci( this.value , this.base );
 
     Number rez( "0" , 10 );
     aux = a - b;
-    rez.value = ToBase( aux , bazaMaxima ) ;
+    strcpy( rez.value , fromDeci( aux , bazaMaxima ) ;
     rez.base = bazaMaxima ;
     return rez;
 
 }
 
 
-Number Number::operator- ( const Number &n ) //negate
+char Number::operator- ( ) //negate
 {
     Number rez( "0" , 10 );
-    strcpy( n.value , rez.value );
-    strcpy( rez.value , rez.value+1 );
+    strcpy( rez.value , this.value );
+    strcpy( rez.value+1 , rez.value );
     rez.value[0] = '-';
-    return rez;
+    return rez.value;
 }
 
-bool Number::operator< ( const Number& n1 , const Number& n2 )
+bool Number::operator< ( const Number& n1 )
 {
     int a, b;
     if( n1.base != 10 )
         a = toDeci( n1.value , n1.base );
-    if( n2.base != 10)
-        b = toDeci( n2.value , n2.base );
+    if( this.base != 10)
+        b = toDeci( this.value , this.base );
 
 
     if( a > b )
@@ -124,13 +152,13 @@ bool Number::operator< ( const Number& n1 , const Number& n2 )
         return 0;
 }
 
-bool Number::operator> ( const Number& n1 , const Number& n2 )
+bool Number::operator> ( const Number& n1)
 {
-     int a, b;
+    int a, b;
     if( n1.base != 10 )
         a = toDeci( n1.value , n1.base );
-    if( n2.base != 10)
-        b = toDeci( n2.value , n2.base );
+    if( this.base != 10)
+        b = toDeci( this.value , this.base );
 
     if( a > b )
         return 1;
@@ -138,14 +166,13 @@ bool Number::operator> ( const Number& n1 , const Number& n2 )
         return 0;
 }
 
-bool Number::operator== ( const Number& n1 , const Number& n2 )
+bool Number::operator== ( const Number& n1 )
 {
     int a, b;
     if( n1.base != 10 )
         a = toDeci( n1.value , n1.base );
-    if( n2.base != 10)
-        b = toDeci( n2.value , n2.base );
-
+    if( this.base != 10)
+        b = toDeci( this.value , this.base );
 
     if( a == b )
         return 1;
@@ -153,14 +180,13 @@ bool Number::operator== ( const Number& n1 , const Number& n2 )
         return 0;
 }
 
-bool Number::operator<= ( const Number& n1 , const Number& n2 )
+bool Number::operator<= ( const Number& n1 )
 {
     int a, b;
     if( n1.base != 10 )
         a = toDeci( n1.value , n1.base );
-    if( n2.base != 10)
-        b = toDeci( n2.value , n2.base );
-
+    if( this.base != 10)
+        b = toDeci( this.value , this.base );
 
     if( a <= b )
         return 1;
@@ -168,13 +194,13 @@ bool Number::operator<= ( const Number& n1 , const Number& n2 )
         return 0;
 }
 
-bool Number::operator>= ( const Number& n1 , const Number& n2 )
+bool Number::operator>= ( const Number& n1 )
 {
     int a, b;
     if( n1.base != 10 )
         a = toDeci( n1.value , n1.base );
-    if( n2.base != 10)
-        b = toDeci( n2.value , n2.base );
+    if( this.base != 10)
+        b = toDeci( this.value , this.base );
 
     if( a >= b )
         return 1;
@@ -182,13 +208,13 @@ bool Number::operator>= ( const Number& n1 , const Number& n2 )
         return 0;
 }
 
-bool Number::operator!= ( const Number& n1 , const Number& n2 )
+bool Number::operator!= ( const Number& n1 )
 {
     int a, b;
     if( n1.base != 10 )
         a = toDeci( n1.value , n1.base );
-    if( n2.base != 10)
-        b = toDeci( n2.value , n2.base );
+    if( this.base != 10)
+        b = toDeci( this.value , this.base );
 
     if( a != b )
         return 1;
@@ -196,8 +222,34 @@ bool Number::operator!= ( const Number& n1 , const Number& n2 )
         return 0;
 }
 
-//Number Number::operator| ( const Number& n1 , const Number& n2 )
+Number Number::operator| ( const Number& n1 )
+{
+    Number rez( "0" , 10 );
+    int bazaMaxima;
+    if( this.base > n1.base )
+    {
+        rez.base = this.base;
+        int a = toDeci( n1.value , n1.base );
+        strcpy(rez.value , fromDeci( rez.base , a ));
+    }
+    else
+        {
+        rez.base = n1.base;
+        int a = toDeci( this.value , this.base );
+        strpcy(rez.value , fromDeci( rez.base , a ));
+        }
+    return rez;
+}
 
+void Number:operator--()
+{
+    strcpy( this.value , this.value+1);
+}
+void Number::operator--(int VariabilaExtremDeFolositoare)
+{
+    int nr = strlen(this.value);
+    this.value[nr-1] = this.value[nr];
+}
 
 //Metode:
 
@@ -225,4 +277,11 @@ int Number::GetBase()
 {
     return this.base;
 }
-//void SwitchBase(int newBase);
+
+void SwitchBase(int newBase);
+{
+    int a = toDeci( this.value , this.base );
+    this.base = newBase;
+    strcpy( this.value , fromDeci( this.base , a );
+}
+
