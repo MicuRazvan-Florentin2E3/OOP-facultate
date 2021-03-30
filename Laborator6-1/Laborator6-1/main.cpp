@@ -14,10 +14,9 @@ int main()
 
 {
 	Circuit c;
-	char* v[15];
 
 	c.SetLength(100);
-	c.SetWeather(Weather::Rain);
+	c.SetWeather(weather::Rain);
 	c.AddCar(new Dacia());
 	c.AddCar(new Toyota());
 	c.AddCar(new Mercedes());

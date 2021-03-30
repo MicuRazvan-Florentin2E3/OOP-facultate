@@ -5,6 +5,8 @@ class Dacia : public Car
 {
 public:
 	Dacia();
-	~Dacia();
-
+	~Dacia() { delete[] avgSpeed; };
+	void SetFuelCapacity(int value);
+	void SetFuelConsumption(double value);
+	void SetAVGspeed(double Rainspeed, double Sunnyspeed, double Snowspeed);
 };

@@ -4,14 +4,16 @@
 
 class Circuit
 {
-	int Lenght;
-	char Weather weather;
+	int Lenght, NrMasini = 0;
+	weather c_w;
+	Car cars[15];
 public:
 	Circuit();
+
 	void SetLength(int value);
-	void SetWeather(Weather w);
-	void AddCar(Car* car);
+	void SetWeather(weather w);
+	void AddCar(Car* masina);
 	void Race();
-	void ShwoFinalRanks();
-	void ShowWhoDidNotFinish();
+	void ShowFinalRanks();
+	void ShowWhoDidNotFinis();
 };
