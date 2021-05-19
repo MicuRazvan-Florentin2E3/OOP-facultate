@@ -94,9 +94,24 @@ int main()
 	C.Add(23);
 	C.Add(5);
 	C.Add(21);
+	C.Add(5);
 
-	C.Delete(2);
+	C.Delete(3);
 
+	C.Print();
+
+	auto lambda3 = [](int& a) {
+		return a * 2;
+	};
+
+	auto lambda4 = [](int a) {
+		return a == 10;
+	};
+
+	C.Iterate(lambda3);
+	C.Print();
+
+	C.Filter(lambda4);
 	C.Print();
 
 	return 0;
